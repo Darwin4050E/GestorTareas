@@ -1,0 +1,59 @@
+@page "/Account/Profile"
+@model ProfileModel
+@{
+    ViewData["Title"] = "Mi Perfil";
+}
+
+<div class="row justify-content-center mt-4">
+    <div class="col-md-8 col-lg-6">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h4 class="mb-0">@ViewData["Title"]</h4>
+            </div>
+            <div class="card-body p-4">
+                <partial name="_StatusMessage" for="StatusMessage" />
+                
+                <div class="mb-4">
+                    <h5>Información de la cuenta</h5>
+                    <hr />
+                    <div class="mb-3">
+                        <label class="form-label text-muted">Correo electrónico</label>
+                        <input value="@Model.Email" class="form-control" disabled />
+                    </div>
+                </div>
+
+                <div class="mb-4">
+                    <h5>Cambiar contraseña</h5>
+                    <hr />
+                    <form id="change-password-form" method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+                        
+                        <div class="form-floating mb-3">
+                            <input asp-for="Input.OldPassword" class="form-control" autocomplete="current-password" aria-required="true" placeholder="Contraseña actual" />
+                            <label asp-for="Input.OldPassword"></label>
+                            <span asp-validation-for="Input.OldPassword" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-floating mb-3">
+                            <input asp-for="Input.NewPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Nueva contraseña" />
+                            <label asp-for="Input.NewPassword"></label>
+                            <span asp-validation-for="Input.NewPassword" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="form-floating mb-3">
+                            <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="Confirmar contraseña" />
+                            <label asp-for="Input.ConfirmPassword"></label>
+                            <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">Actualizar contraseña</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
