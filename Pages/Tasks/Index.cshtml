@@ -1,0 +1,94 @@
+@page
+@model GestorTareas.Pages.Tasks.IndexModel
+
+@{
+    ViewData["Title"] = "Mis Tareas";
+}
+
+<h1>Mis Tareas</h1>
+
+<p>
+    <a asp-page="Create">Crear Nueva</a>
+</p>
+
+<h2>Pendientes</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Título</th>
+            <th>Descripción</th>
+            <th>Creada</th>
+            <th>Vence</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.PendingTasks) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DueDate)
+            </td>
+            <td>
+                <form method="post" asp-page-handler="ToggleComplete" asp-route-id="@item.Id" class="d-inline">
+                    <button type="submit" class="btn btn-sm btn-outline-success">
+                        @(item.IsCompleted ? "Reabrir" : "Completar")
+                    </button>
+                </form>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Editar</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Detalles</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Eliminar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+
+<h2>Completadas</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Título</th>
+            <th>Descripción</th>
+            <th>Creada</th>
+            <th>Vence</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.CompletedTasks) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DueDate)
+            </td>
+            <td>
+                <form method="post" asp-page-handler="ToggleComplete" asp-route-id="@item.Id" class="d-inline">
+                    <button type="submit" class="btn btn-sm btn-outline-success">
+                        @(item.IsCompleted ? "Reabrir" : "Completar")
+                    </button>
+                </form>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Editar</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Detalles</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Eliminar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
